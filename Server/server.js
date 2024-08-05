@@ -14,9 +14,6 @@ const mitzinet_coll = db.collection('final_noam_ron');
 const app = express();
 app.use(express.json()); // Middleware to parse JSON body
 
-// Serve static files from the 'static' directory
-app.use(express.static('static'));
-
 // POST request to add new user to the database
 app.post('/order', (req, res) => {
     let name = req.body.name.trim();
@@ -93,6 +90,16 @@ app.post('/order', (req, res) => {
 
         let order_id = result.insertedId;
         res.status(201).json({ success: true, message: 'order added successfuly', order_id: order_id });
+    });
+});
+
+app.get('/products', (req, res) => {
+    db.collection('products_noam_ron').find().toArray((err, result) => {
+        if (err) {
+          console.error('Error fetching products', err);
+          return res.status(500).json({ success: false, message: 'Server error' });
+        }
+        res.status(200).json({ success: true, products: result });
     });
 });
 

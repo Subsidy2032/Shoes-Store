@@ -18,7 +18,7 @@ app.use(express.json()); // Middleware to parse JSON body
 app.use(express.static('static'));
 
 // POST request to add new user to the database
-app.post('/mitzinet', (req, res) => {
+app.post('/order', (req, res) => {
     let name = req.body.name.trim();
     let phone = req.body.phone.trim();
     let email = req.body.email.trim();

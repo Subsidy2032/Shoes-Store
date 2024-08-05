@@ -29,13 +29,6 @@ app.post('/order', (req, res) => {
     let shipping_method = req.body.shipping_method.trim();
     let products = req.body.products;
 
-    let total_price = 0;
-    for (let product of products) {
-        total_price += product.unit_price * product.quantity;
-    }
-
-    total_price = shipping_method.toLowerCase() == "fast" ? total_price + 5 : total_price;
-
     console.log('Received data:');
 
     let emailValid = function(email) {
@@ -50,6 +43,15 @@ app.post('/order', (req, res) => {
 
     let messages = []; // Array to save all relevent error messages
 
+    let total_price = 0;
+    for (let product of products) {
+        total_price += product.unit_price * product.quantity;
+        if(product.quantity < 1)
+            messages.push('Quantity of products must be at least 1');
+    }
+
+    total_price = shipping_method.toLowerCase() == "fast" ? total_price + 5 : total_price;
+
     // Adding relevent error messages to the messages array
     if(!phoneValid(phone)) {
         messages.push('Phone number must be between 9-10 digits');
@@ -60,8 +62,16 @@ app.post('/order', (req, res) => {
         messages.push('Invalid email address');
     }
 
-    if(name === "" || address === "") {
-        messages.push('Name and address must not be empty');
+    if(name === "") {
+        messages.push('Name field must not be empty');
+    }
+
+    if (!address || !address.line || !address.street || !address.city || !address.country) {
+        messages.push('All address fields must be filled');
+    }
+
+    if(products.length < 1) {
+        messages.push('Cart can not be empty');
     }
 
     // If the messages array isn't empty, the server returns the array
@@ -80,95 +90,14 @@ app.post('/order', (req, res) => {
         console.error('Error adding order', err);
         return res.status(500).json({ success: false, message: 'Server error' });
         }
-        res.status(201).json({ success: true, message: 'order added successfuly', client: client });
+
+        let order_id = result.insertedId;
+        res.status(201).json({ success: true, message: 'order added successfuly', order_id: order_id });
     });
-});
-
-// DELETE request to delete a user from the database
-app.delete('/mitzinet', (req, res) => {
-  let email = req.body.email.trim();
-  let pass = req.body.password;
-
-  // Checking if the email is valid
-  let emailValid = function(email) {
-    const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,5}$/
-    return regex.test(email);
-  }
-
-  if(!emailValid(email)) {
-    return res.status(400).json({ success: false, message: 'Invalid email address' });
-  }
-
-  // Checking if the email exists
-  db.mitzinet_noam_ron.findOne({ email: email }, (err, user) => {
-    if (err) {
-      console.error('Error finding user', err);
-      return res.status(500).json({ message: 'Server error' });
-    }
-
-    console.log('Retrieved user:', user);
-
-    if (!user) {
-      return res.status(404).json({ message: "Email and password do not match or email doesn't exist" });
-    }
-
-    // Converting the password to string and hashing the password
-    pass = String(pass);
-
-    const hashedPassword = user.password;
-
-    // Check if hashedPassword exists
-    if (!hashedPassword) {
-      console.error('Hashed password not found for the user');
-      return res.status(500).json({ success: false, message: 'Server error' });
-    }
-
-    // Hashing the entered password and comparing to the existing one
-    bcrypt.compare(pass, hashedPassword, (err, result) => {
-      if (err) {
-        console.error('Error comparing passwords', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
-      }
-
-      // Incorrect password is entered
-      if (!result) {
-        return res.status(401).json({ success: false, message: "Email and password do not match or email doesn't exist" });
-      }
-
-      // Password matches, now delete the user
-      db.mitzinet_noam_ron.remove({ email: email }, (err, result) => {
-        if (err) {
-          console.error('Error deleting user', err);
-          return res.status(500).json({ success: false, message: 'Server error' });
-        }
-        res.status(200).json({ success: true, message: 'User deleted successfully' });
-      });
-    });
-  });
 });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
-
-// Route to check if email exists
-app.get('/checkEmail', (req, res) => {
-  let email = req.query.email.trim();
-
-  // Attempting to find the email
-  db.mitzinet_noam_ron.findOne({ email: email }, (err, result) => {
-      if (err) {
-          console.error('Error finding email:', err);
-          return res.status(500).json({ exists: false });
-      }
-      if (result) {
-          // Email exists
-          return res.json({ exists: true });
-      } else {
-          // Email doesn't exist
-          return res.json({ exists: false });
-      }
-  });
 });

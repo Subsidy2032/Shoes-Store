@@ -32,9 +32,10 @@ function Home() {
         <div>
             {products.map(product => (
                 <Product 
+                    key={product.id}
                     name={product.name}
                     image={product.image}
-                    description={product.description}
+                    description={product.Description}
                     price={product.price}
                 />
             ))}

@@ -13,6 +13,7 @@ function AppRouter() {
                 <Routes>
                     <Route path="/" element={<Home/>} />
                     <Route path="/order" element={<Order/>} />
+                    <Route path="/home" element={<Home/>} />
                     <Route path="*" element={<NotFound/>} />
                 </Routes>
             </div>

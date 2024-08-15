@@ -8,8 +8,6 @@ const db = mongojs(
     'mongodb+srv://Student:webdev2024student@cluster0.uqyflra.mongodb.net/webdev2024',
     ['final_noam_ron']
   );
-  
-const mitzinet_coll = db.collection('final_noam_ron'); 
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON body
@@ -23,10 +21,8 @@ app.post('/order', (req, res) => {
     let customer = {name: name, phone: phone, email: email, address: address};
     
     let order_date = new Date();
-    let shipping_method = req.body.shipping_method.trim();
+    let shipping_method = req.body.shipping_method;
     let products = req.body.products;
-
-    console.log('Received data:');
 
     let emailValid = function(email) {
         const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,5}$/
@@ -84,8 +80,8 @@ app.post('/order', (req, res) => {
     // Attempting to insert the client to the database
     db.final_noam_ron.insertOne(order, (err, result) => {
         if (err) {
-        console.error('Error adding order', err);
-        return res.status(500).json({ success: false, message: 'Server error' });
+            console.error('Error adding order', err);
+            return res.status(500).json({ success: false, message: 'Server error' });
         }
 
         let order_id = result.insertedId;

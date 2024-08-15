@@ -1,17 +1,27 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import Product from "./Product";
-import { Router } from "react-router-dom";
+import axios from 'axios';
 
 function Home() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch('https://localhost:5173/products')
-           .then((res) => res.json())
+        fetch('http://localhost:5173/products', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
            .then((data) => {
-              console.log(data);
-              setProducts(data);
+              console.log(data.products);
+              setProducts(data.products);
            })
            .catch((err) => {
               console.log(err.message);

@@ -20,7 +20,6 @@ function Home() {
                 return res.json();
             })
            .then((data) => {
-              console.log(data.products);
               setProducts(data.products);
            })
            .catch((err) => {

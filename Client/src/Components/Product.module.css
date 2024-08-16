@@ -9,9 +9,8 @@
     display: inline-block;
 }
 
-.product .productimggg {
+.product .productImage {
     max-width: 60%;
     height: auto;
-    border-radius: 50%;
     margin-bottom: 10px;
 }

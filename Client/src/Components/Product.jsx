@@ -10,7 +10,7 @@ function Product(props) {
 
     return(
         <div className= {styles.product}>
-            <img className= {styles.product-image}
+            <img className= {styles.productImage}
                 src={props.image} alt="Can't Load Image" />
             <h2>{props.name}</h2>
             <p>{props.description}</p>

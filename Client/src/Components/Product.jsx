@@ -1,4 +1,7 @@
 import React, {useState} from "react";
+import styles from "./Product.module.css";
+
+
 
 function Product(props) {
     function handleClick() {
@@ -6,8 +9,9 @@ function Product(props) {
     }
 
     return(
-        <div className="product">
-            <img src={props.image} alt="" />
+        <div className= {styles.product}>
+            <img className= {styles.product-image}
+                src={props.image} alt="Can't Load Image" />
             <h2>{props.name}</h2>
             <p>{props.description}</p>
             <p>{props.price}</p>

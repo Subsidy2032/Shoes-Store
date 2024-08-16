@@ -4,11 +4,25 @@ ul {
     padding: 0;
 }
 
+.ul li {
+    color: white;
+    position: relative; /* Set relative positioning */
+}
+
 .navbar {
     background-size: cover;
     font-family: sans-serif;
     margin-top: 20px;
     padding: 30px;
+}
+
+.cartButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative; /* Ensure button is relative within li */
 }
 
 nav {
@@ -21,6 +35,7 @@ nav {
     display: flex;
     align-items: center;
     box-shadow: 0 0 25px 0 black;
+    z-index: 1000;
 }
 
 nav * {

@@ -1,0 +1,20 @@
+.cart {
+    position: relative;
+    top: 50px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.cart h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.cart p {
+    margin: 0;
+}

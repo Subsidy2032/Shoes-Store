@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import Product from "./Product";
+import styles from "./Home.module.css";
 import axios from 'axios';
 
 function Home() {
@@ -18,7 +19,7 @@ function Home() {
      }, []);
 
     return (
-        <div>
+        <div className= {styles.productGrid}>
             {products.map(product => (
                 <Product 
                     key={product.id}

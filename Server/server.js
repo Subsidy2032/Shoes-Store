@@ -95,6 +95,7 @@ app.get('/products', (req, res) => {
           console.error('Error fetching products', err);
           return res.status(500).json({ success: false, message: 'Server error' });
         }
+        console.log('Fetched Products:', result);
         res.status(200).json({ success: true, products: result });
     });
 });

@@ -1,17 +1,16 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import Product from "./Product";
-import { Router } from "react-router-dom";
+import axios from 'axios';
 
 function Home() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5173/products')
+        fetch('https://localhost:5173/products')
            .then((res) => res.json())
            .then((data) => {
-              console.log(data);
-              setProducts(data);
+              setProducts(data.products);
            })
            .catch((err) => {
               console.log(err.message);
@@ -22,9 +21,10 @@ function Home() {
         <div>
             {products.map(product => (
                 <Product 
+                    key={product.id}
                     name={product.name}
                     image={product.image}
-                    description={product.description}
+                    description={product.Description}
                     price={product.price}
                 />
             ))}

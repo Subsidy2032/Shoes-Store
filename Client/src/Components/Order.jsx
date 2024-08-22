@@ -62,7 +62,7 @@ function Order(props) {
                 "products": cartItems})
         };
         
-        fetch('http://localhost:5173/order2', requestOptions)
+        fetch('http://localhost:5173/order', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log('Success: ', data)
@@ -118,6 +118,8 @@ function Order(props) {
             setDeliveryMessage("Must choose delivery method");
             valid = false;
         }
+
+        return valid
     }
 
     return (

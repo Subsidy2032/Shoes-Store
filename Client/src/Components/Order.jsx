@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
+import styles from "./Order.module.css";
 
-function Order(props) {
+function Order() {
     const { cartItems } = useContext(CartContext);
 
     const [name, setName] = useState("");
@@ -123,12 +124,12 @@ function Order(props) {
     }
 
     return (
-        <div>
-            <div className="products">
+        <div className={styles.container}>
+            <div className={styles.products}>
                 {cartItems.map(product => (    
-                    <div key={product.id} className="cartItem">
-                        <img src={product.image} alt={product.name} className="cartImage" />
-                        <div className="cartDetails">
+                    <div key={product.id} className={styles.cartItem}>
+                        <img src={product.image} alt={product.name} className={styles.cartImage} />
+                        <div className={styles.cartDetails}>
                             <h4>{product.name}</h4>
                             <p>{product.description}</p>
                             <p>Price: ${product.price}</p>
@@ -139,7 +140,7 @@ function Order(props) {
                 ))}
             </div>
 
-            <form className="form" onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label>Enter your name:
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name"/>
                 </label>
@@ -156,10 +157,10 @@ function Order(props) {
                 <span>{phoneMessage}</span>
 
                 <label>Enter your address:
-                    <input type="text" value={line} onChange={(e) => setLine(e.target.value)}/>
-                    <input type="text" value={street} onChange={(e) => setStreet(e.target.value)}/>
-                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)}/>
-                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)}/>
+                    <input type="text" value={line} onChange={(e) => setLine(e.target.value)} placeholder="Enter your line number"/>
+                    <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Enter your street"/>
+                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city"/>
+                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Enter your country"/>
                 </label>
                 <span>{addressMessage}</span>
                 
@@ -175,7 +176,7 @@ function Order(props) {
                 <span>{cartMessage}</span>
             </form>
 
-            <h2>Total price: {totalPrice}</h2>
+            <h2 className={styles.totalPrice}>Total price: {totalPrice}</h2>
         </div>
     )
 }

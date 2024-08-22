@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); // Middleware to parse JSON body
 
 // POST request to add new user to the database
-app.post('/order', (req, res) => {
+app.post('/order2', (req, res) => {
     let name = req.body.name.trim();
     let phone = req.body.phone.trim();
     let email = req.body.email.trim();

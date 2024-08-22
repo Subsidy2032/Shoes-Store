@@ -9,8 +9,8 @@ function ShoppingCart() {
     return (
         <div className= {styles.cart}>
             <h2>Your Shopping Cart</h2>
-            {cartItems === 0 ? (
-                <p>No items in the cart</p>
+            {cartItems.length === 0 ? (
+                <p>Your Cart Is Empty!</p>
                 ) : (
                     cartItems.map((item, index) => (
                         <div key= {index} className= {styles.cartItem}>
@@ -18,7 +18,8 @@ function ShoppingCart() {
                             <div className= {styles.cartDetails}>
                                 <h4>{item.name}</h4>
                                 <p>{item.description}</p>
-                                <p>{item.price}</p>
+                                <p>Price: {item.price}</p>
+                                <p>Qty: {item.quantity}</p>
                                 </div>
                         </div>
                     ))

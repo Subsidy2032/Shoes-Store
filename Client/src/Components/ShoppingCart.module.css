@@ -25,6 +25,7 @@
 }
 
 .cartItem {
+    color: black;
     display: flex;
     margin-bottom: 15px;
 }

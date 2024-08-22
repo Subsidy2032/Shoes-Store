@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "./Product";
-import styles from "./Home.module.css";
+import styles from"./Home.module.css";
 import axios from 'axios';
 
 function Home() {
@@ -20,13 +19,12 @@ function Home() {
 
     return (
         <div className= {styles.productGrid}>
-            {products.map(product => (
-                <Product 
-                    key={product.id}
-                    name={product.name}
-                    image={product.image}
-                    description={product.Description}
-                    price={product.price}
+            {products.length === 0 ? <p>No products available</p> : products.map(product => (
+                <Product key= {product.id}
+                name={product.name}
+                image={product.image}
+                description={product.Description}
+                price={product.price}
                 />
             ))}
         </div>

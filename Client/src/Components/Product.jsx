@@ -1,11 +1,18 @@
-import React, {useState} from "react";
+import React, { useContext } from "react";
 import styles from "./Product.module.css";
-
-
+import { CartContext } from "./CartContext";
 
 function Product(props) {
+
+    const { addToCart } = useContext(CartContext);
+
     function handleClick() {
-        
+        addToCart({
+            name: props.name,
+            image: props.image,
+            description: props.description,
+            price: props.price,
+        });
     }
 
     return(

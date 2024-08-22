@@ -19,7 +19,7 @@
     box-shadow: 5px 10px 20px hsla(0, 0%, 0%, 0.2);
 }
 
-.product .productImage {
+.productImage {
     width: 100%;
     max-width: 200px;
     height: auto;
@@ -28,6 +28,6 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.product .productImage:hover {
+.productImage:hover {
     transform: scale(1.05);
 }

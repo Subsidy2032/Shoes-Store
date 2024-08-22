@@ -6,7 +6,7 @@ ul {
 
 .ul li {
     color: white;
-    position: relative; /* Set relative positioning */
+    position: relative;
 }
 
 .navbar {
@@ -14,6 +14,11 @@ ul {
     font-family: sans-serif;
     margin-top: 20px;
     padding: 30px;
+    position: relative;
+}
+
+.cartContainer {
+    position: relative;
 }
 
 .cartButton {
@@ -22,7 +27,7 @@ ul {
     color: white;
     font-size: 24px;
     cursor: pointer;
-    position: relative; /* Ensure button is relative within li */
+    position: relative;
 }
 
 nav {

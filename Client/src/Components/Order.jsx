@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CartContext } from "./CartContext";
+import styles from "./Order.module.css";
 
-function Order(props) {
+function Order() {
+    const { cartItems } = useContext(CartContext);
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState();
-    const [line, setLine] = useState();
+    const [phone, setPhone] = useState("");
+    const [line, setLine] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
@@ -35,14 +39,18 @@ function Order(props) {
 
     useEffect(() => {
         let total = 0;
-        props.products.forEach(product => {
+        cartItems.forEach(product => {
             total += product.price * product.quantity;
         });
         setTotalPrice(total);
-    }, [props.products]);
+    }, [cartItems]);
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        if(!validateForm()) {
+            return;
+        }
 
         const requestOptions = {
             method: 'POST',
@@ -52,7 +60,7 @@ function Order(props) {
                 "email": email,
                 "address": { "line": line, "street": street, "city": city, "country": country },
                 "shipping_method": deliveryMethod,
-                "products": props.products})
+                "products": cartItems})
         };
         
         fetch('http://localhost:5173/order', requestOptions)
@@ -65,15 +73,15 @@ function Order(props) {
             });
     }
 
-    function handleClick() {
+    function validateForm() {
         let valid = true;
-        if(props.products.length <= 0) {
+        if(cartItems.length <= 0) {
             setCartMessage("Cart cannot be empty");
             valid = false;
         }
 
         else {
-            for (let product of props.products) {
+            for (let product of cartItems) {
                 if (product.quantity < 1) {
                     setCartMessage('All products must have quantity of at least one');
                     valid = false;
@@ -112,26 +120,27 @@ function Order(props) {
             valid = false;
         }
 
-        if(valid) {
-            handleSubmit();
-        }
+        return valid
     }
 
     return (
-        <div>
-            <div className="products">
-                {props.products.map(product => (    
-                    <Product 
-                        key={product.id}
-                        name={product.name}
-                        image={product.image}
-                        description={product.Description}
-                        total_price={product.price * product.quantity}
-                    />
+        <div className={styles.container}>
+            <div className={styles.products}>
+                {cartItems.map(product => (    
+                    <div key={product.id} className={styles.cartItem}>
+                        <img src={product.image} alt={product.name} className={styles.cartImage} />
+                        <div className={styles.cartDetails}>
+                            <h4>{product.name}</h4>
+                            <p>{product.description}</p>
+                            <p>Price: ${product.price}</p>
+                            <p>Quantity: {product.quantity}</p>
+                            <p>Total: ${product.price * product.quantity}</p>
+                        </div>
+                    </div>
                 ))}
             </div>
 
-            <form action="submit" className="form">
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label>Enter your name:
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name"/>
                 </label>
@@ -148,10 +157,10 @@ function Order(props) {
                 <span>{phoneMessage}</span>
 
                 <label>Enter your address:
-                    <input type="text" value={line} onChange={(e) => setLine(e.target.value)}/>
-                    <input type="text" value={street} onChange={(e) => setStreet(e.target.value)}/>
-                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)}/>
-                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)}/>
+                    <input type="text" value={line} onChange={(e) => setLine(e.target.value)} placeholder="Enter your line number"/>
+                    <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Enter your street"/>
+                    <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city"/>
+                    <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} placeholder="Enter your country"/>
                 </label>
                 <span>{addressMessage}</span>
                 
@@ -162,11 +171,12 @@ function Order(props) {
                 </select>
                 <span>{deliveryMessage}</span>
                 <span>{lineMessage}</span>
+
+                <button type="submit">Order</button>
+                <span>{cartMessage}</span>
             </form>
 
-            <h2>Total price: {totalPrice}</h2>
-            <button onClick={handleClick}>Order</button>
-            <span>{cartMessage}</span>
+            <h2 className={styles.totalPrice}>Total price: {totalPrice}</h2>
         </div>
     )
 }

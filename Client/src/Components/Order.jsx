@@ -63,7 +63,7 @@ function Order() {
                 "products": cartItems})
         };
         
-        fetch('http://localhost:5173/order', requestOptions)
+        fetch('http://localhost:5173/api/order', requestOptions)
             .then(response => response.json())
             .then(data => {
                 console.log('Success: ', data)
@@ -74,6 +74,14 @@ function Order() {
     }
 
     function validateForm() {
+        setEmailMessage("");
+        setPhoneMessage("");
+        setNameMessage("");
+        setAddressMessage("");
+        setLineMessage("");
+        setDeliveryMessage("");
+        setCartMessage("");
+
         let valid = true;
         if(cartItems.length <= 0) {
             setCartMessage("Cart cannot be empty");

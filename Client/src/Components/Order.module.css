@@ -4,6 +4,9 @@
     flex-direction: column;
     margin: 20px;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Styling for product items */

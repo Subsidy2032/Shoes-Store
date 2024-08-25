@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); // Middleware to parse JSON body
 
 // POST request to add new user to the database
-app.post('/order', (req, res) => {
+app.post('/api/order', async (req, res) => {
     let name = req.body.name.trim();
     let phone = req.body.phone.trim();
     let email = req.body.email.trim();
@@ -36,9 +36,7 @@ app.post('/order', (req, res) => {
 
     let messages = []; // Array to save all relevent error messages
 
-    let total_price = 0;
     for (let product of products) {
-        total_price += product.unit_price * product.quantity;
         if(product.quantity < 1)
             messages.push('Quantity of products must be at least 1');
     }
@@ -72,9 +70,28 @@ app.post('/order', (req, res) => {
         return res.status(400).json({ success: false, message: messages });
     }
 
+    const updatedProducts = [];
+
+    for (const product of products) {
+        const dbProduct = await db.products_noam_ron.findOne({ name: product.name });
+
+        if (!dbProduct) {
+            return res.status(400).json({ success: false, message: `Product ${product.name} not found` });
+        }
+
+        // Update the product with new quantity (without checking the existing quantity in this case)
+        dbProduct.quantity = product.quantity;
+        updatedProducts.push(dbProduct);
+    }
+
+    let total_price = 0;
+    for (let product of products) {
+        total_price += product.unit_price * product.quantity;
+    }
+
     // Preparing the client details to save to the database
     let order = {
-        customer, order_date, shipping_method, products, total_price
+        customer, order_date, shipping_method, updatedProducts, total_price
     };
 
     // Attempting to insert the client to the database
@@ -89,7 +106,7 @@ app.post('/order', (req, res) => {
     });
 });
 
-app.get('/products', (req, res) => {
+app.get('/api/products', (req, res) => {
     db.collection('products_noam_ron').find().toArray((err, result) => {
         if (err) {
           console.error('Error fetching products', err);

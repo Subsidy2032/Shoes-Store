@@ -63,13 +63,18 @@ function Order() {
                 "products": cartItems})
         };
         
-        fetch('http://localhost:5173/api/order', requestOptions)
+        fetch('/api/order', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log('Success: ', data)
+                if (data.success) {
+                    navigate('/ordercomplete', { state: { orderId: data.order_id, totalPrice } });
+                } else {
+                    // Handle errors
+                    console.error("Error: ", data.message);
+                }
             })
             .catch(error => {
-                console.error("Error: ", error)
+                console.error("Error: ", error);
             });
     }
 

@@ -50,7 +50,7 @@ client.connect(err => {
 
         let total_price = 0;
 
-        total_price = shipping_method.toLowerCase() === "fast" ? total_price + 5 : total_price;
+        total_price = shipping_method.toLowerCase() === "fast" ? total_price + 25 : total_price;
 
         if (!phoneValid(phone)) {
             messages.push('Phone number must be between 9-10 digits');

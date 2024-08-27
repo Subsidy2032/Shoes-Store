@@ -53,7 +53,7 @@ function Order() {
         });
 
         if(deliveryMethod === "Fast"){
-            setTotal += 5;
+            setTotal += 25;
         }
         
         setTotalPrice(setTotal);
@@ -104,14 +104,14 @@ function Order() {
 
         let valid = true;
         if(cartItems.length <= 0) {
-            setCartMessage("Cart cannot be empty");
+            setCartMessage("Cart Cannot Be Empty!s");
             valid = false;
         }
 
         else {
             for (let product of cartItems) {
                 if (product.quantity < 1) {
-                    setCartMessage('All products must have quantity of at least one');
+                    setCartMessage('Must Have At Least One of All Products');
                     valid = false;
                     break;
                 }
@@ -119,22 +119,22 @@ function Order() {
         }
 
         if(!name) {
-            setNameMessage("Name field cannot be empty");
+            setNameMessage("Name Field Cannot Be Empty");
             valid = false;
         }
 
         if(!checkEmail(email)) {
-            setEmailMessage("Invalid email address");
+            setEmailMessage("Invalid Email Address");
             valid = false;
         }
 
         if(!checkPhone(phone)) {
-            setPhoneMessage("Invalid phone number");
+            setPhoneMessage("Invalid Phone Number");
             valid = false;
         }
 
         if(!line || !street || !city || !country) {
-            setAddressMessage("Address fields cannot be empty");
+            setAddressMessage("Address Fields Cannot Be Empty");
             valid = false;
         }
 
@@ -144,7 +144,7 @@ function Order() {
         }
 
         if(!deliveryMethod) {
-            setDeliveryMessage("Must choose delivery method");
+            setDeliveryMessage("Please Choose a Delivery Method");
             valid = false;
         }
 
@@ -169,22 +169,22 @@ function Order() {
             </div>
 
             <form className={styles.form} onSubmit={handleSubmit}>
-                <label>Enter your name:
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name"/>
+                <label>Full Name:
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Full Name Here"/>
                 </label>
                 <span>{nameMessage}</span>
 
-                <label>Enter your email address:
-                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address"/>
+                <label>Email Address:
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email Here"/>
                 </label>
                 <span>{emailMessage}</span>
 
-                <label>Enter your phone number:
-                    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone number"/>
+                <label>Phone Number:
+                    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter Your Phone Number Here"/>
                 </label>
                 <span>{phoneMessage}</span>
 
-                <label>Enter your address:
+                <label>Address:
                     <input type="text" value={line} onChange={(e) => setLine(e.target.value)} placeholder="Enter your line number"/>
                     <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Enter your street"/>
                     <input type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Enter your city"/>
@@ -193,9 +193,9 @@ function Order() {
                 <span>{addressMessage}</span>
                 
                 <select value={deliveryMethod} onChange={(e) => setDeliveryMethod(e.target.value)}>
-                    <option value="">Select a delivery option</option>
-                    <option value="Regular">Regular delivery</option>
-                    <option value="Fast">Fast delivery (5$)</option>
+                    <option value="">Select a Delivery Method</option>
+                    <option value="Regular">Standard Shipping: FREE</option>
+                    <option value="Fast">Express Shipping: + $25</option>
                 </select>
                 <span>{deliveryMessage}</span>
                 <span>{lineMessage}</span>

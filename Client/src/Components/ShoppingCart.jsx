@@ -8,7 +8,7 @@ function ShoppingCart() {
     const { cartItems } = useContext(CartContext);
     const navigate = useNavigate()
 
-    const goToOrderPage=()=>{
+    const goToOrderPage = ()=> {
         navigate("/order") 
     }
 

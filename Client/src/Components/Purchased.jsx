@@ -1,8 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import styles from "./OrderComplete.module.css";
+import styles from "./Purchased.module.css";
 
-function OrderComplete() {
+function Purchased() {
     const location = useLocation();
     const { orderId, cartItems, totalPrice, address } = location.state || {};
 
@@ -38,7 +38,7 @@ function OrderComplete() {
     );
 }
 
-export default OrderComplete;
+export default Purchased;
 
 
 

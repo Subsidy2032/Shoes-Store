@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
 import styles from "./Order.module.css";
+import { useNavigate } from "react-router-dom"
+
 
 function Order() {
+    
     const { cartItems } = useContext(CartContext);
+    const navigate = useNavigate()
+
+    const goToPurchased = ()=> {
+        navigate('/purchased') 
+    }
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -67,7 +75,7 @@ function Order() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    navigate('/ordercomplete', { state: { orderId: data.order_id, totalPrice } });
+                    goToPurchased();
                 } else {
                     // Handle errors
                     console.error("Error: ", data.message);

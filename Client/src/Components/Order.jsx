@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
 import styles from "./Order.module.css";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 
 function Order() {
     
     const { cartItems } = useContext(CartContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const goToPurchased = ()=> {
-        navigate('/purchased') 
+    const goToPurchased = (orderId)=> {
+        navigate('/purchased', {state: {orderId, totalPrice}});
     }
 
     const [name, setName] = useState("");
@@ -46,12 +46,17 @@ function Order() {
     }
 
     useEffect(() => {
-        let total = 0;
+        let setTotal = 0;
         cartItems.forEach(product => {
-            total += product.price * product.quantity;
+            setTotal += product.price * product.quantity;
         });
-        setTotalPrice(total);
-    }, [cartItems]);
+
+        if(deliveryMethod === "Fast"){
+            setTotal += 5;
+        }
+        
+        setTotalPrice(setTotal);
+    }, [cartItems, deliveryMethod]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -75,7 +80,7 @@ function Order() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    goToPurchased();
+                    goToPurchased(data.order_id);
                 } else {
                     // Handle errors
                     console.error("Error: ", data.message);
@@ -86,6 +91,7 @@ function Order() {
             });
     }
 
+    
     function validateForm() {
         setEmailMessage("");
         setPhoneMessage("");
@@ -113,7 +119,7 @@ function Order() {
 
         if(!name) {
             setNameMessage("Name field cannot be empty");
-            valid = false
+            valid = false;
         }
 
         if(!checkEmail(email)) {
@@ -147,8 +153,8 @@ function Order() {
     return (
         <div className={styles.container}>
             <div className={styles.products}>
-                {cartItems.map(product => (    
-                    <div key={product.id} className={styles.cartItem}>
+                {cartItems.map((product, index) => (    
+                    <div key={index} className={styles.cartItem}>
                         <img src={product.image} alt={product.name} className={styles.cartImage} />
                         <div className={styles.cartDetails}>
                             <h4>{product.name}</h4>

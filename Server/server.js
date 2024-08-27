@@ -89,8 +89,8 @@ client.connect(err => {
             updatedProducts.push(dbProduct);
         }
 
-        for (let product of products) {
-            total_price += product.unit_price * product.quantity;
+        for (let product of updatedProducts) {
+            total_price += product.price * product.quantity;
         }
 
         let order = {

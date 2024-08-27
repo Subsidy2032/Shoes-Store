@@ -79,7 +79,7 @@ client.connect(err => {
         const updatedProducts = [];
 
         for (const product of products) {
-            const dbProduct = await db.collection('products_noam_ron').findOne({ name: product.name });
+            const dbProduct = await db.collection('products_noam_ron').findOne({ name: product.Name });
 
             if (!dbProduct) {
                 return res.status(400).json({ success: false, message: `Product ${product.name} not found` });

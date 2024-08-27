@@ -20,11 +20,11 @@ function Home() {
         <div className={styles.container}>
             <div className= {styles.productGrid}>
                 {products.length === 0 ? <p>No products available</p> : products.map(product => (
-                    <Product key= {product.id}
-                    name={product.name}
-                    image={product.image}
+                    <Product key= {product.ID}
+                    name={product.Name}
+                    image={product.Image}
                     description={product.Description}
-                    price={product.price}
+                    price={product.Price}
                     />
                 ))}
             </div>

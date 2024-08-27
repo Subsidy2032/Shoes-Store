@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 function Order() {
     
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate();
 
     const goToPurchased = (orderId)=> {
+        clearCart();
         navigate('/purchased', {state: {orderId, totalPrice}});
     }
 

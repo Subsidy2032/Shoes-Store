@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Purchased.module.css';
 
 function Purchased() {
     const location = useLocation();
     const { orderId, totalPrice } = location.state || {};
-
-    useEffect()
-
 
     return (
         <div className={styles.container}>

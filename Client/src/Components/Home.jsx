@@ -27,7 +27,7 @@ function Home() {
                     name={product.Name}
                     image={product.Image}
                     description={product.Description}
-                    price={product.Price}
+                    price= {product.Price}
                     />
                 ))}
             </div>

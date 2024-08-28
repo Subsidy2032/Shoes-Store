@@ -30,9 +30,9 @@ function ShoppingCart() {
                             <div className= {styles.cartDetails}>
                                 <h4>{item.name}</h4>
                                 <p>{item.description}</p>
-                                <p>Price: ${item.price.toFixed(2)}</p>
+                                <p>Price: ${item.price}</p>
                                 <p>Qty: {item.quantity}</p>
-                                <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                                <p>Total: ${item.price * item.quantity}</p>
                                 <div className={styles.quantityControls}>
                                     <button onClick={() => decrementQuantity(item.name)}>-</button>
                                     <button onClick={() => incrementQuantity(item.name)}>+</button>

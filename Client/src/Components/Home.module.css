@@ -17,6 +17,10 @@
     margin: 0 auto; /* Center the grid within the container */
 }
 
+.productGrid Product {
+    
+}
+
 @media (max-width: 768px) {
     .productGrid {
         grid-template-columns: repeat(2, 1fr);

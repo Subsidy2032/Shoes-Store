@@ -24,7 +24,7 @@ function Product(props) {
                 src={props.image} alt="Can't Load Image" />
             <h2>{props.name}</h2>
             <p>{props.description}</p>
-            <p>{props.price}</p>
+            <p>${props.price}</p>
             <button onClick={handleClick}>Add to Cart</button>
         </div>
     )

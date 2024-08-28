@@ -210,8 +210,8 @@ function Order() {
                 
                 <select value={deliveryMethod} onChange={(e) => setDeliveryMethod(e.target.value)}>
                     <option value="">Select a Delivery Method</option>
-                    <option value="Regular">Standard Shipping: FREE</option>
-                    <option value="Fast">Express Shipping: + $25</option>
+                    <option value="Regular">Standard Shipping: (Up to 14 Days) FREE!</option>
+                    <option value="Fast">Express Shipping: (Up to 3 Days) + $25</option>
                 </select>
                 <span>{deliveryMessage}</span>
                 <span>{lineMessage}</span>

@@ -43,8 +43,34 @@ export const CartProvider = ({ children }) => {
         }
     }, []);
 
+    const incrementQuantity = (name) => {
+        const updatedCart = cartItems.map(item =>
+            item.name === name
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+        );
+        setCartItems(updatedCart);
+        saveCartToCookies(updatedCart);
+    };
+
+    const decrementQuantity = (name) => {
+        const updatedCart = cartItems.map(item =>
+            item.name === name
+                ? { ...item, quantity: Math.max(item.quantity - 1, 1) }
+                : item
+        );
+        setCartItems(updatedCart);
+        saveCartToCookies(updatedCart);
+    };
+
+    const removeFromCart = (name) => {
+        const updatedCart = cartItems.filter(item => item.name !== name);
+        setCartItems(updatedCart);
+        saveCartToCookies(updatedCart);
+    };
+
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, clearCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, clearCart, incrementQuantity, decrementQuantity, removeFromCart }}>
             {children}
         </CartContext.Provider>
     );

@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom"
 
 function ShoppingCart() {
 
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, incrementQuantity, decrementQuantity, removeFromCart } = useContext(CartContext);
     const navigate = useNavigate()
 
     const goToOrderPage = ()=> {
         navigate("/order") 
     }
+
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
         <div className= {styles.cart}>
@@ -25,11 +27,20 @@ function ShoppingCart() {
                             <div className= {styles.cartDetails}>
                                 <h4>{item.name}</h4>
                                 <p>{item.description}</p>
-                                <p>Price: {item.price}</p>
+                                <p>Price: ${item.price.toFixed(2)}</p>
                                 <p>Qty: {item.quantity}</p>
+                                <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                                <div className={styles.quantityControls}>
+                                    <button onClick={() => decrementQuantity(item.name)}>-</button>
+                                    <button onClick={() => incrementQuantity(item.name)}>+</button>
+                                    <button onClick={() => removeFromCart(item.name)}>Remove</button>
                                 </div>
+                            </div>
                         </div>
                     ))}
+                    <div className={styles.totalPrice}>
+                        <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+                    </div>
                     <button onClick={goToOrderPage} className={styles.checkoutButton}>
                         Proceed to Checkout
                     </button>

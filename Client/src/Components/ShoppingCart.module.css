@@ -41,3 +41,39 @@
     display: flex;
     flex-direction: column;
 }
+
+.quantityControls {
+    margin-top: 10px;
+}
+
+.quantityControls button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.quantityControls button:hover {
+    background-color: #ccc;
+}
+
+.totalPrice {
+    margin-top: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.checkoutButton {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.checkoutButton:hover {
+    background-color: #218838;
+}

@@ -90,7 +90,6 @@ client.connect(err => {
         }
 
         for (let product of updatedProducts) {
-            console.log(total_price);
             total_price += product.Price * product.quantity;
         }
 

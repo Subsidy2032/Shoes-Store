@@ -1,3 +1,5 @@
+// Not found page for pages that doesn't exist
+
 import React from 'react';
 
 const NotFound = () => {

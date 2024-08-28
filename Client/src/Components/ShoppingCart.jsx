@@ -1,3 +1,5 @@
+// Shopping cart component
+
 import React, { useContext } from "react";
 import styles from "./ShoppingCart.module.css";
 import { CartContext } from "./CartContext";
@@ -8,6 +10,7 @@ function ShoppingCart() {
     const { cartItems, incrementQuantity, decrementQuantity, removeFromCart } = useContext(CartContext);
     const navigate = useNavigate()
 
+    // Function to go to the order page when clicking the 'Proceed to Checkout' button
     const goToOrderPage = ()=> {
         navigate("/order") 
     }

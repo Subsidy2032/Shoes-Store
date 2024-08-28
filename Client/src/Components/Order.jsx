@@ -1,3 +1,5 @@
+// Order page to make an order
+
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
 import styles from "./Order.module.css";
@@ -5,15 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 
 function Order() {
-    
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate();
-
+    
+    // Navigating to the purchased page upon a successful submition of the form
     const goToPurchased = (orderId)=> {
         clearCart();
         navigate('/purchased', {state: {orderId, totalPrice}});
     }
 
+    // Setting variables for details and messages
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -31,21 +34,25 @@ function Order() {
     const [deliveryMessage, setDeliveryMessage] = useState("");
     const [cartMessage, setCartMessage] = useState("");
 
+    // Checking that the email is valid
     function checkEmail(email) {
         const regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,5}$/;
         return regex.test(email);
     }
 
+    // Checking that the phone number is between 9-10 digits
     function checkPhone(phone) {
         const regex = /^[0-9]{9,10}$/;
         return regex.test(phone);
     }
 
+    // Checking that the line number is 1-5 digits
     function checkLine(line) {
         const regex = /^[0-9]{1,5}$/;
         return regex.test(line);
     }
 
+    // Setting the total price based on changes to the cart or delivery method
     useEffect(() => {
         let setTotal = 0;
         cartItems.forEach(product => {
@@ -59,13 +66,16 @@ function Order() {
         setTotalPrice(setTotal);
     }, [cartItems, deliveryMethod]);
 
+    // Handling the submittion of the form
     function handleSubmit(e) {
         e.preventDefault();
 
+        // Checking that the form is valid
         if(!validateForm()) {
             return;
         }
 
+        // Preparing the parameters to send to the server
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -77,6 +87,7 @@ function Order() {
                 "products": cartItems})
         };
         
+        // Making the post request to the server
         fetch('/api/order', requestOptions)
             .then(response => response.json())
             .then(data => {
@@ -85,6 +96,7 @@ function Order() {
                 } else {
                     // Handle errors
                     console.error("Error: ", data.message);
+                    setCartMessage("Something went wrong");
                 }
             })
             .catch(error => {
@@ -92,7 +104,7 @@ function Order() {
             });
     }
 
-    
+    // Function to check that the details are valid
     function validateForm() {
         setEmailMessage("");
         setPhoneMessage("");
@@ -103,11 +115,14 @@ function Order() {
         setCartMessage("");
 
         let valid = true;
+
+        // Checking that the cart isn't empty
         if(cartItems.length <= 0) {
             setCartMessage("Cart Cannot Be Empty!s");
             valid = false;
         }
 
+        // In case the cart isn't empty, checking that there is no zero or negative quantities
         else {
             for (let product of cartItems) {
                 if (product.quantity < 1) {
@@ -118,6 +133,7 @@ function Order() {
             }
         }
 
+        // Checking the validity of other fields
         if(!name) {
             setNameMessage("Name Field Cannot Be Empty");
             valid = false;
@@ -129,7 +145,7 @@ function Order() {
         }
 
         if(!checkPhone(phone)) {
-            setPhoneMessage("Invalid Phone Number");
+            setPhoneMessage("Phone number must be 9-10 digits");
             valid = false;
         }
 
@@ -139,7 +155,7 @@ function Order() {
         }
 
         if(!checkLine(line)) {
-            setLineMessage("Line must be a valid number");
+            setLineMessage("Line number must be 1-5 digits");
             valid = false;
         }
 

@@ -1,3 +1,5 @@
+// The home page
+
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import styles from"./Home.module.css";
@@ -5,6 +7,7 @@ import styles from"./Home.module.css";
 function Home() {
     const [products, setProducts] = useState([]);
 
+    // Fetching all the products from the server to display them on the page
     useEffect(() => {
         fetch('http://localhost:5173/api/products')
            .then((res) => res.json())

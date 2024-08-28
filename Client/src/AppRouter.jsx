@@ -1,3 +1,5 @@
+// Component to define all the pages and the navbar
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './Components/NavBar';

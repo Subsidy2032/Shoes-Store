@@ -1,3 +1,5 @@
+// This component describes a product
+
 import React, { createContext, useContext } from "react";
 import styles from "./Product.module.css";
 import { CartContext } from "./CartContext";
@@ -6,6 +8,7 @@ function Product(props) {
 
     const { addToCart } = useContext(CartContext);
 
+    // Adding the product to the cart when clicking the 'Add to Cart' button
     function handleClick() {
         addToCart({
             name: props.name,

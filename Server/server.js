@@ -79,7 +79,7 @@ client.connect(err => {
         const updatedProducts = [];
 
         for (const product of products) {
-            const dbProduct = await db.collection('products_noam_ron').findOne({ name: product.Name });
+            const dbProduct = await db.collection('products_noam_ron').findOne({ Name: product.name });
 
             if (!dbProduct) {
                 return res.status(400).json({ success: false, message: `Product ${product.name} not found` });
@@ -90,6 +90,7 @@ client.connect(err => {
         }
 
         for (let product of updatedProducts) {
+            console.log(total_price);
             total_price += product.Price * product.quantity;
         }
 

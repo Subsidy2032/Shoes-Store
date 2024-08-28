@@ -1,9 +1,8 @@
-// This component describes a product
-
 import React, { createContext, useContext } from "react";
 import styles from "./Product.module.css";
 import { CartContext } from "./CartContext";
 
+// This component describes a product
 function Product(props) {
 
     const { addToCart } = useContext(CartContext);

@@ -1,8 +1,11 @@
-// The home page
-
 import React, { useState, useEffect } from "react";
 import Product from "./Product";
 import styles from"./Home.module.css";
+import coverImage from "../assets/Cover.jpg";  // Adjust the path as needed
+
+// Home Page
+
+
 
 function Home() {
     const [products, setProducts] = useState([]);
@@ -21,13 +24,16 @@ function Home() {
 
     return (
         <div className={styles.container}>
-            <div className= {styles.productGrid}>
+            <div className={styles.coverImageContainer}>
+                <img src={coverImage} alt="Cover" className={styles.coverImage} />
+            </div>
+            <div className={styles.productGrid}>
                 {products.length === 0 ? <p>No products available</p> : products.map(product => (
-                    <Product key= {product.ID}
+                    <Product key={product.ID}
                     name={product.Name}
                     image={product.Image}
                     description={product.Description}
-                    price= {product.Price}
+                    price={product.Price}
                     />
                 ))}
             </div>

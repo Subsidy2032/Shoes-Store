@@ -1,11 +1,9 @@
-// Order page to make an order
-
 import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "./CartContext";
 import styles from "./Order.module.css";
 import { useNavigate } from "react-router-dom";
 
-
+// Order page to make an order
 function Order() {
     const { cartItems, clearCart } = useContext(CartContext);
     const navigate = useNavigate();

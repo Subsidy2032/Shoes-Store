@@ -1,7 +1,6 @@
-// Not found page for pages that doesn't exist
-
 import React from 'react';
 
+// Not found page for pages that doesn't exist
 const NotFound = () => {
   return (
     <div>

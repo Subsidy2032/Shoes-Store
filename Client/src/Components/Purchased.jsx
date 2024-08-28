@@ -1,7 +1,7 @@
-// Page for a successful purchase
 import { useLocation } from 'react-router-dom';
 import styles from './Purchased.module.css';
 
+// Page for a successful purchase
 function Purchased() {
     const location = useLocation();
     const { orderId, totalPrice } = location.state || {};

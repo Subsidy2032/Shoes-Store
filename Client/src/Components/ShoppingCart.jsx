@@ -1,10 +1,9 @@
-// Shopping cart component
-
 import React, { useContext } from "react";
 import styles from "./ShoppingCart.module.css";
 import { CartContext } from "./CartContext";
 import { useNavigate } from "react-router-dom"
 
+// Shopping cart component
 function ShoppingCart() {
 
     const { cartItems, incrementQuantity, decrementQuantity, removeFromCart } = useContext(CartContext);

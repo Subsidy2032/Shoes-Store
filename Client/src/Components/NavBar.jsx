@@ -4,6 +4,7 @@ import styles from "./NavBar.module.css";
 import ShoppingCart from "./ShoppingCart";
 import Logo from "../assets/Logo.png";
 
+// The navigation bar
 function NavBar() {
     const [cartVisible, setCartVisible] = useState(false);
     const cartRef = useRef(null);  // Ref for the cart container

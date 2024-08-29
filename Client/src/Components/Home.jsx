@@ -4,15 +4,12 @@ import styles from"./Home.module.css";
 import coverImage from "../assets/Cover.jpg";  // Adjust the path as needed
 
 // Home Page
-
-
-
 function Home() {
     const [products, setProducts] = useState([]);
 
     // Fetching all the products from the server to display them on the page
     useEffect(() => {
-        fetch('http://localhost:5173/api/products')
+        fetch('/api/products')
            .then((res) => res.json())
            .then((data) => {
               setProducts(data.products);

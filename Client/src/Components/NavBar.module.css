@@ -1,0 +1,63 @@
+.logo {
+    height: 80px;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ul li {
+    color: white;
+    position: relative;
+}
+
+.navbar {
+    background-size: cover;
+    font-family: sans-serif;
+    margin-top: 20px;
+    padding: 30px;
+    position: relative;
+}
+
+.cartContainer {
+    position: relative;
+}
+
+.cartButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+}
+
+nav {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 25px 0 black;
+    z-index: 1000;
+}
+
+nav * {
+    display: inline;
+}
+
+nav li {
+    margin: 20px;
+}
+
+nav li a {
+    color: black;
+    text-decoration: none;
+}

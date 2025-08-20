@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: auto;
+}
+
+.coverImageContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Space between cover image and product grid */
+}
+
+.coverImage {
+    width: 100%; /* Ensure the cover image spans the full width of the container */
+    max-width: 1200px; /* Optional: limit the maximum width of the cover image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px; /* Max width to control grid size */
+    width: 100%; /* Full width within the container */
+    margin: 0 auto; /* Center the grid within the container */
+}
+
+@media (max-width: 768px) {
+    .productGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .productGrid {
+        grid-template-columns: 1fr;
+    }
+}
